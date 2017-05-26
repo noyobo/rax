@@ -19,7 +19,8 @@ module.exports = function(source) {
     throw new Error('StyleSheet Parsing Error occured.');
   }
 
-  const parseData = parse(this.query, stylesheet);
+  const query = loaderUtils.getOptions(this);
+  const parseData = parse(query, stylesheet);
 
   return exportContent(parseData);
 };
@@ -28,8 +29,7 @@ const parse = (query, stylesheet) => {
   let data = {};
   let fontFaceRules = [];
   let mediaRules = [];
-  const parseQuery = loaderUtils.parseQuery(query);
-  const transformDescendantCombinator = parseQuery.transformDescendantCombinator;
+  const transformDescendantCombinator = query.transformDescendantCombinator;
 
   stylesheet.rules.forEach(function(rule) {
     let style = {};

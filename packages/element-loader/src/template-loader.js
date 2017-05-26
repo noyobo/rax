@@ -10,7 +10,7 @@ const converter = new HTMLToJSX();
 module.exports = function(source, parseObject) {
   this.cacheable && this.cacheable();
   const callback = this.async();
-  const query = loaderUtils.parseQuery(this.query);
+  const query = loaderUtils.getOptions(this);
 
   // no engine default: html
   if (!cons[query.engine]) {
@@ -26,7 +26,6 @@ module.exports = function(source, parseObject) {
 
 const getConvertText = (source, links, query) => {
   const convert = converter.convert(source);
-  const { presets, imports } = query;
   const code = `
     ${query.banner}
     ${getElementsImport(links)}

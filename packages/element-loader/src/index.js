@@ -2,7 +2,6 @@ import loaderUtils from 'loader-utils';
 import parser from './parserHTML';
 import pkg from '../package.json';
 import path from 'path';
-import { transform } from 'babel-core';
 import getBabelConfig from './getBabelConfig';
 import uppercamelcase from 'uppercamelcase';
 
@@ -11,7 +10,7 @@ module.exports = function(source) {
   const context = this;
   const filePath = this.resourcePath;
   const fileBaseName = path.basename(filePath, path.extname(filePath));
-  const query = loaderUtils.parseQuery(this.query);
+  const query = loaderUtils.getOptions(this);
   const parseObject = parser(source);
 
   let output = '\nlet styles = {};\n';
