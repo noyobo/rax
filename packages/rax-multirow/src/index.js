@@ -14,21 +14,29 @@ class List extends Component {
       renderCell = props.renderCell;
 
     let grids = [];
-
     let gridDataArr = [];
+
     for (let i = 0; i < list.length; i++) {
-      let index = Math.floor(i / count);
-      if (i % count == 0) {
-        gridDataArr[index] = [];
+      if (count < 2) {
+        grids.push(
+          <Row style={props.rowStyle}>
+            <Col style={props.colStyle}>{renderCell(list[i], i)}</Col>
+          </Row>
+        );
+      } else {
+        let index = Math.floor(i / count);
+        if (i % count == 0) {
+          gridDataArr[index] = [];
+        }
+        gridDataArr[index].push(<Col style={props.colStyle}>{renderCell(list[i], i)}</Col>);
+        if (i == list.length - 1) {
+          grids.push(<Row style={props.rowStyle}>{gridDataArr[index]}</Row>);
+        }
+        if (i % count == 0 && i != 0) {
+          grids.push(<Row style={props.rowStyle}>{gridDataArr[index - 1]}</Row>);
+        }
       }
-      gridDataArr[index].push(<Col style={props.colStyle}>{renderCell(list[i], i)}</Col>);
-      if (i == list.length - 1) {
-        grids.push(<Row style={props.rowStyle}>{gridDataArr[index]}</Row>);
-      }
-      if (i % count == 0 && i != 0) {
-        grids.push(<Row style={props.rowStyle}>{gridDataArr[index - 1]}</Row>);
-      }
-    };
+    }
 
     return <View>{grids}</View>;
   }
