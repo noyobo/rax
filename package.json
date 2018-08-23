@@ -85,7 +85,9 @@
       "/lib/",
       "/dist/",
       "sfc-loader",
-      "mp-loader"
+      "mp-loader",
+      "miniapp-dev-server",
+      "miniapp-compiler-shared"
     ]
   },
   "config": {
